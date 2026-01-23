@@ -7,34 +7,84 @@ from database import NuvexaDB
 from assistant import NuvexaAssistant
 from shopping import ShoppingEngine
 
-st.set_page_config(page_title=APP_NAME, page_icon="🤖", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title=APP_NAME, page_icon="🤖", layout="wide", initial_sidebar_state="auto")
 
 st.markdown("""
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NUVEXA">
+<meta name="mobile-web-app-capable" content="yes">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-    * { font-family: 'Inter', sans-serif; }
-    .stApp { background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); }
+    * {
+        font-family: 'Inter', sans-serif;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+    }
+    html, body {
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    .stApp {
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        min-height: 100vh;
+    }
     .main-header {
-        font-size: 4rem; font-weight: 800;
+        font-size: clamp(2rem, 8vw, 4rem);
+        font-weight: 800;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        text-align: center; margin-bottom: 0; letter-spacing: -2px;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-align: center;
+        margin-bottom: 0;
+        letter-spacing: -2px;
         animation: glow 2s ease-in-out infinite alternate;
+        padding: 10px;
     }
     @keyframes glow {
         from { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5)); }
         to { filter: drop-shadow(0 0 30px rgba(118, 75, 162, 0.8)); }
     }
-    .tagline { text-align: center; color: #a8b2d1; font-size: 1.3rem; margin-top: -10px; margin-bottom: 40px; font-weight: 300; }
-    .assistant-avatar { font-size: 5rem; text-align: center; margin: 30px 0; animation: float 3s ease-in-out infinite; }
+    .tagline {
+        text-align: center;
+        color: #a8b2d1;
+        font-size: clamp(0.9rem, 4vw, 1.3rem);
+        margin-top: -10px;
+        margin-bottom: 20px;
+        font-weight: 300;
+        padding: 0 15px;
+    }
+    .assistant-avatar {
+        font-size: clamp(3rem, 10vw, 5rem);
+        text-align: center;
+        margin: 20px 0;
+        animation: float 3s ease-in-out infinite;
+    }
     @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
     .product-card {
         background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-        backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px; padding: 25px; margin: 15px 0; transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: clamp(15px, 3vw, 25px);
+        margin: 15px 0;
+        transition: all 0.3s ease;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        touch-action: manipulation;
     }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4); }
+    .product-card:hover,
+    .product-card:active {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+    }
+    @media (max-width: 768px) {
+        .product-card {
+            margin: 10px 0;
+            padding: 15px;
+        }
+    }
     .cart-item {
         background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
         padding: 15px; border-radius: 15px; margin: 10px 0; border: 1px solid rgba(102, 126, 234, 0.3);
@@ -45,23 +95,73 @@ st.markdown("""
         margin: 20px 0; backdrop-filter: blur(10px);
     }
     .stButton>button {
-        border-radius: 25px; font-weight: 600; padding: 10px 30px;
-        border: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        border-radius: 25px;
+        font-weight: 600;
+        padding: 15px 30px;
+        min-height: 44px;
+        min-width: 44px;
+        border: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         transition: all 0.3s ease;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
-    .stButton>button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6); }
+    .stButton>button:hover,
+    .stButton>button:active {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.95) 100%);
         backdrop-filter: blur(10px); border-right: 1px solid rgba(102, 126, 234, 0.2);
     }
     .stChatMessage {
         background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-        backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 15px; margin: 10px 0;
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: clamp(10px, 2vw, 15px);
+        margin: 10px 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
-    h1, h2, h3, h4, h5, h6 { color: #e6f1ff; }
-    p, span, div { color: #a8b2d1; }
+    h1, h2, h3, h4, h5, h6 {
+        color: #e6f1ff;
+        word-wrap: break-word;
+    }
+    p, span, div {
+        color: #a8b2d1;
+        word-wrap: break-word;
+    }
+    /* Mobile-specific styles */
+    @media (max-width: 768px) {
+        .main-header {
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+        .tagline {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        [data-testid="stSidebar"] {
+            width: 85vw !important;
+        }
+        .stChatInput {
+            font-size: 16px !important; /* Prevents zoom on iOS */
+        }
+    }
+    /* iOS Safari specific fixes */
+    @supports (-webkit-touch-callout: none) {
+        input, textarea, select {
+            font-size: 16px !important;
+        }
+        .stApp {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 

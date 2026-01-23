@@ -1,0 +1,124 @@
+===============================================
+  🤖 NUVEXA AI - iOS Quick Start Guide
+===============================================
+
+WHAT YOU NEED:
+--------------
+✓ Mac or Linux computer (to run the server)
+✓ iPhone or iPad (iOS 12+)
+✓ Both devices on the same WiFi network
+✓ OpenAI API key
+
+
+SETUP (5 minutes):
+------------------
+
+1. ON YOUR COMPUTER:
+
+   Open Terminal, navigate to nuvexa_ai folder:
+
+   cd nuvexa_ai
+   chmod +x SETUP_IOS.sh RUN_IOS.sh
+   ./SETUP_IOS.sh
+
+
+2. ADD YOUR API KEY:
+
+   Edit the .env file and add:
+   OPENAI_API_KEY=your-key-here
+
+   Get free API key at:
+   https://platform.openai.com/api-keys
+
+
+3. START THE SERVER:
+
+   ./RUN_IOS.sh
+
+   The terminal will show the URL to use
+   Example: http://192.168.1.100:8501
+
+
+4. ON YOUR iPHONE/iPAD:
+
+   • Open Safari browser
+   • Go to the URL from step 3
+   • Wait for NUVEXA to load
+   • Enjoy! 🎉
+
+
+MAKE IT FEEL LIKE A NATIVE APP:
+--------------------------------
+
+In Safari:
+1. Tap the Share button (square with arrow)
+2. Scroll down, tap "Add to Home Screen"
+3. Name it "NUVEXA" and tap "Add"
+4. Now launch NUVEXA from your home screen!
+
+
+iOS FEATURES:
+-------------
+✨ Touch-optimized buttons (44x44 pixels)
+📱 Responsive design for iPhone & iPad
+🎨 iOS-specific styling and gestures
+🔄 Smooth scrolling and animations
+⚡ No zoom on input fields
+🌐 Works in Safari, Chrome, and Firefox
+
+
+TROUBLESHOOTING:
+----------------
+
+Can't connect from iOS?
+→ Make sure both devices are on same WiFi
+→ Check firewall settings on computer
+→ Try the computer's IP address instead
+
+Keyboard zooming in?
+→ This shouldn't happen - we fixed it!
+→ Font size is set to 16px to prevent zoom
+
+Page not loading?
+→ Make sure the server is running (step 3)
+→ Check the URL is typed correctly
+→ Try http:// not https://
+
+Input fields not working?
+→ Make sure you're using Safari
+→ Try tapping directly on the input box
+→ Reload the page if needed
+
+
+DAILY USE:
+----------
+
+1. On computer: ./RUN_IOS.sh
+2. On iOS: Open NUVEXA from home screen
+3. That's it!
+
+
+STOPPING THE SERVER:
+--------------------
+
+Press Ctrl+C in the Terminal window
+
+
+MODES AVAILABLE:
+----------------
+
+🤖 Assistant Mode - General help and planning
+🛒 Shopping Mode - Product search and purchase
+💭 Therapist Mode - Emotional support
+🏗️ Builder Mode - Project planning
+
+
+QUESTIONS?
+----------
+
+Check the full README.md for detailed instructions.
+
+
+===============================================
+Built with ❤️ for iOS users
+===============================================

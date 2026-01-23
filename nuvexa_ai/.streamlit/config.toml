@@ -1,0 +1,29 @@
+[server]
+# Enable CORS for mobile access
+enableCORS = true
+enableXsrfProtection = true
+
+# Set the server address to be accessible from network
+headless = true
+port = 8501
+# Allow connections from all network interfaces (needed for mobile access)
+address = "0.0.0.0"
+
+[browser]
+# Automatically open browser (disable for mobile/server deployments)
+gatherUsageStats = false
+serverAddress = "localhost"
+serverPort = 8501
+
+[theme]
+# Mobile-optimized theme settings
+primaryColor = "#667eea"
+backgroundColor = "#0f0c29"
+secondaryBackgroundColor = "#302b63"
+textColor = "#e6f1ff"
+font = "sans serif"
+
+[client]
+# Mobile-friendly client settings
+showErrorDetails = false
+toolbarMode = "minimal"
