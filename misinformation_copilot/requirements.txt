@@ -1,0 +1,19 @@
+# Misinformation Debunking Copilot - Requirements
+# Python 3.11+
+
+# Core dependencies
+streamlit>=1.28.0
+playwright>=1.40.0
+python-dotenv>=1.0.0
+pyperclip>=1.8.2
+
+# LLM integrations (optional)
+openai>=1.6.0
+anthropic>=0.8.0
+requests>=2.31.0
+
+# Database
+# sqlite3 is included in Python standard library
+
+# Additional utilities
+Pillow>=10.1.0

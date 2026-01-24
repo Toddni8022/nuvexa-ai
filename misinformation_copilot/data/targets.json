@@ -1,0 +1,9 @@
+{
+  "targets": [
+    {
+      "name": "Example Search - Misinformation",
+      "url": "https://www.facebook.com/search/posts?q=example",
+      "type": "search"
+    }
+  ]
+}
