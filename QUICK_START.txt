@@ -1,0 +1,42 @@
+﻿========================================
+    NUVEXA AI - Quick Start Guide
+========================================
+
+FIRST TIME SETUP (Do once):
+-----------------------------
+1. Double-click SETUP.bat
+2. Wait for installation to complete
+3. Open .env file in Notepad
+4. Replace "your-openai-api-key-here" with your actual OpenAI API key
+5. Save and close .env
+
+RUNNING NUVEXA:
+-----------------------------
+1. Double-click RUN_NUVEXA.bat
+2. Wait for browser to open (http://localhost:8501)
+3. Start chatting with NUVEXA!
+
+FEATURES:
+-----------------------------
+- 🤖 Assistant Mode: General help and planning
+- 🛒 Shopping Mode: Search and buy products
+- 💭 Therapist Mode: Emotional support
+- 🏗️ Builder Mode: Project planning
+
+REQUIREMENTS:
+-----------------------------
+- Windows 10/11
+- Python 3.8 or higher
+- Internet connection
+- OpenAI API key (get free at: https://platform.openai.com/api-keys)
+
+TROUBLESHOOTING:
+-----------------------------
+- If Python not found: Install from https://www.python.org/downloads/
+- If app won't start: Make sure you added your API key to .env
+- If packages fail: Run "pip install --upgrade pip" then try SETUP.bat again
+
+========================================
+Questions? Check README.md for details
+Built with ❤️ for easy AI interaction
+========================================
