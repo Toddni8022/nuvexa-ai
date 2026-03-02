@@ -1,0 +1,19 @@
+[run]
+source = .
+omit =
+    tests/*
+    nuvexa_ai/*
+    setup.py
+    */NUVEXA-Portable*
+    */TEST-EXTRACT*
+    */build/*
+    */dist/*
+
+[report]
+show_missing = true
+skip_covered = false
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if __name__ == .__main__.:
+    raise NotImplementedError

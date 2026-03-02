@@ -1,0 +1,52 @@
+# Git
+.git/
+.gitignore
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Tests and coverage
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Development tools
+.editorconfig
+.env.example
+Makefile
+pyproject.toml
+setup.py
+pytest.ini
+.coveragerc
+
+# Documentation
+docs/
+*.md
+
+# Streamlit
+.streamlit/
+
+# Nuvexa build artifacts
+nuvexa_ai/
+scripts/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
