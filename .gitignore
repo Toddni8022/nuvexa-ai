@@ -22,9 +22,11 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
+.venv/
 ENV/
 env/
 
@@ -39,13 +41,34 @@ env/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
 
 # OS
 .DS_Store
 Thumbs.db
+ehthumbs.db
 
 # Streamlit
 .streamlit/
 
 # Logs
 *.log
+logs/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+
+# Linter caches
+.ruff_cache/
+
+# Build artefacts
+*.spec
+
