@@ -27,7 +27,7 @@ class Config:
     """Application configuration"""
 
     # LLM Configuration
-    LLM_PROVIDER = os.getenv("LLM_PROVIDER", "mock")  # mock, openai, anthropic, ollama
+    LLM_PROVIDER = os.getenv("LLM_PROVIDER", "anthropic")  # mock, openai, anthropic, ollama
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
     ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
     OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
@@ -37,7 +37,7 @@ class Config:
     OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4-turbo-preview")
 
     # Anthropic model settings
-    ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-3-sonnet-20240229")
+    ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
 
     # Collection settings (defaults)
     DEFAULT_SCROLL_PASSES = 3
