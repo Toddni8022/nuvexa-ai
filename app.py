@@ -87,7 +87,7 @@ if 'db' not in st.session_state:
     if not st.session_state.ai_assistant.client:
         api_key_value = st.session_state.ai_assistant.api_key if hasattr(st.session_state.ai_assistant, 'api_key') else None
         if api_key_value and api_key_value != 'your-openai-api-key-here':
-            st.error(f"⚠️ API key found but client initialization failed. Key starts with: {api_key_value[:10]}...")
+            st.error("⚠️ An API key was found, but the OpenAI client could not be initialized.")
         else:
             st.error("⚠️ OpenAI API key not configured. Please check your .env file in the project folder.")
             st.info("💡 Make sure your .env file contains: `OPENAI_API_KEY=sk-your-key-here`")
