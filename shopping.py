@@ -1,4 +1,3 @@
-import random
 from typing import List, Dict, Any
 import re
 
@@ -125,12 +124,9 @@ class ShoppingEngine:
                     if any(word in product_text for word in query_words if len(word) > 2):
                         results.append(product)
         
-        # If no matches, return random recommendations
+        # An unknown query should not be disguised as a relevant recommendation.
         if not results:
-            all_products = []
-            for products in self.products.values():
-                all_products.extend(products)
-            results = random.sample(all_products, min(5, len(all_products)))
+            return []
         
         # Remove duplicates and limit results
         seen = set()

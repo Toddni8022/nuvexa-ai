@@ -1,3 +1,5 @@
+import os
+
 from openai import OpenAI
 from typing import Optional, List, Tuple
 from config import OPENAI_API_KEY, MODES
@@ -22,14 +24,13 @@ class NuvexaAssistant:
         
         # Check if key is valid
         if not self.api_key or self.api_key == 'your-openai-api-key-here' or len(self.api_key) < 10:
-            logger.warning(f"OpenAI API key not configured properly. Key length: {len(self.api_key) if self.api_key else 0}")
-            logger.warning(f"Key value (first 20 chars): {self.api_key[:20] if self.api_key else 'None'}")
+            logger.warning("OpenAI API key is not configured")
             self.client = None
         else:
             try:
                 # Initialize client - this doesn't make an API call, just creates the client object
                 self.client = OpenAI(api_key=self.api_key)
-                logger.info(f"OpenAI client initialized successfully. Key starts with: {self.api_key[:10]}...")
+                logger.info("OpenAI client initialized")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {str(e)}")
                 self.client = None
@@ -67,7 +68,7 @@ class NuvexaAssistant:
             messages.append({"role": "user", "content": user_message.strip()})
             
             # Try models in order of preference
-            models = ["gpt-4o", "gpt-4", "gpt-3.5-turbo"]
+            models = [os.getenv("OPENAI_MODEL", "gpt-4o-mini")]
             response = None
             last_error = None
             

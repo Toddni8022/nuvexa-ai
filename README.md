@@ -1,145 +1,63 @@
 # Nuvexa AI
 
-Nuvexa AI is an experimental AI assistant framework designed to automate tasks and execute intelligent workflows.
+Nuvexa is a Streamlit prototype that combines a multi-mode OpenAI assistant with local conversation history and a simulated shopping cart and checkout workflow.
 
-The project explores how AI agents can be used to assist developers and IT teams by analyzing information, performing automated actions, and coordinating tasks through programmable workflows.
+## Portfolio focus
 
----
-
-## Overview
-
-Nuvexa AI acts as an AI-powered assistant capable of receiving instructions, reasoning about tasks, and executing automated workflows.
-
-The goal of the project is to demonstrate how AI agents can be integrated into real-world systems to help automate repetitive or complex operations.
-
-Potential use cases include:
-
-* Task automation
-* AI-assisted system monitoring
-* Data processing pipelines
-* Intelligent developer tooling
-* Workflow orchestration
-
----
+The project demonstrates UI state management, prompt-mode switching, safe optional AI configuration, SQLite persistence, product search, and a complete local cart-to-order flow. Shopping results and checkout are simulations: Nuvexa does not scrape retailers, verify live prices, charge a payment method, or place external orders.
 
 ## Features
 
-* AI-powered task processing
-* Modular architecture for extending capabilities
-* Python-based automation workflows
-* Integration with external APIs
-* Extensible framework for AI-driven operations
+- Assistant, shopping, supportive-listening, and project-planning prompt modes
+- Optional OpenAI chat with configurable model
+- Persistent per-mode conversation history in SQLite
+- Deterministic local product catalog and search
+- Cart quantity management, simulated checkout, and order history
+- Offline tests that require no API key
 
----
+## Architecture
 
-## System Architecture
+```mermaid
+flowchart LR
+    UI[Streamlit UI] --> A[Assistant modes]
+    UI --> S[Product search]
+    UI --> DB[(SQLite)]
+    A --> O[OpenAI optional]
+    S --> DB
+```
 
-User Input
-↓
-Task Parser
-↓
-AI Reasoning Layer
-↓
-Action Executor
-↓
-Generated Output
+## Run locally
 
-The system processes incoming tasks, determines the required actions, and executes them through an automated workflow.
-
----
-
-## Tech Stack
-
-* Python
-* Large Language Model APIs
-* JSON task structures
-* Modular workflow system
-
----
-
-## Installation
-
-Clone the repository:
-
+```bash
 git clone https://github.com/Toddni8022/nuvexa-ai.git
-
-Navigate to the project directory:
-
 cd nuvexa-ai
-
-Install dependencies:
-
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+cp .env.example .env
+streamlit run app.py
+```
 
----
+The non-AI catalog, cart, checkout simulation, and order history work without an OpenAI key.
 
-## Usage
+## Verification
 
-Run the AI assistant:
+```bash
+pip install -r requirements-dev.txt
+pytest -q
+```
 
-python main.py
+## Privacy and safety
 
-The system will start the assistant environment and begin processing tasks.
+- API keys are never displayed or logged.
+- Conversations are stored locally in `nuvexa.db`; delete that file to remove local history.
+- Supportive-listening mode is not therapy, diagnosis, crisis support, or medical advice.
+- Product data is demonstration data and may be outdated.
 
----
+## Repository hygiene
 
-## Example Task
+Generated executables, PyInstaller build output, ZIP bundles, backups, and duplicate source trees are intentionally excluded. Releases should be attached through GitHub Releases rather than committed to source control.
 
-Example instruction to the assistant:
+## License
 
-Analyze system logs and summarize potential issues.
-
-The system will:
-
-1. Parse the task
-2. Analyze the provided information
-3. Generate a structured summary
-4. Return the results to the user
-
----
-
-## Example Output
-
-Task Summary
-
-Potential issue detected in API response times.
-
-Key Findings
-
-* Response latency increased by 320 percent
-* Errors detected in database connection pool
-* Traffic spike occurred shortly before failures
-
-Suggested Actions
-
-* Review database connection limits
-* Increase monitoring thresholds
-* Investigate recent deployment changes
-
----
-
-## Future Improvements
-
-* Multi-agent collaboration
-* Plugin system for extending functionality
-* Memory and knowledge storage
-* Web interface dashboard
-* Integration with monitoring systems
-* Automated task scheduling
-
----
-
-## Why This Project Matters
-
-AI agents are becoming an important part of modern automation systems. Tools like Nuvexa AI demonstrate how AI can assist with workflow automation, system monitoring, and intelligent task execution.
-
-This project explores practical applications of AI assistants within engineering and operational environments.
-
----
-
-## Author
-
-Todd Nicholas
-Junior developer focused on AI automation, agent systems, and intelligent tooling.
-
-GitHub: https://github.com/Toddni8022
+MIT
