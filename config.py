@@ -1,74 +1,11 @@
 import os
-from dotenv import load_dotenv
-from typing import Dict, Any
 from pathlib import Path
 
-# Get the directory where this config file is located
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent
-
-# Load .env file from the same directory as this script
-env_path = BASE_DIR / '.env'
-
-# Try multiple methods to load the API key
-OPENAI_API_KEY = None
-
-# Method 1: Try load_dotenv with explicit path
-if env_path.exists():
-    load_dotenv(dotenv_path=env_path, override=True)
-    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
-# Method 2: Try load_dotenv from current directory
-if not OPENAI_API_KEY:
-    load_dotenv(override=True)
-    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
-# Method 3: Read directly from file (most reliable fallback)
-# This handles BOM and encoding issues
-if not OPENAI_API_KEY or OPENAI_API_KEY == 'your-openai-api-key-here':
-    if env_path.exists():
-        try:
-            # Use utf-8-sig to automatically strip BOM
-            with open(env_path, 'r', encoding='utf-8-sig') as f:
-                for line in f:
-                    # Strip BOM and whitespace
-                    line = line.strip()
-                    # Skip comments and empty lines
-                    if not line or line.startswith('#'):
-                        continue
-                    # Check if line contains OPENAI_API_KEY (handles BOM at start)
-                    if 'OPENAI_API_KEY' in line and '=' in line:
-                        # Split on = and handle BOM in key name
-                        parts = line.split('=', 1)
-                        if len(parts) == 2:
-                            key = parts[0].strip().lstrip('\ufeff').strip()
-                            if key == 'OPENAI_API_KEY':
-                                OPENAI_API_KEY = parts[1].strip()
-                                # Remove quotes if present
-                                if OPENAI_API_KEY.startswith('"') and OPENAI_API_KEY.endswith('"'):
-                                    OPENAI_API_KEY = OPENAI_API_KEY[1:-1]
-                                elif OPENAI_API_KEY.startswith("'") and OPENAI_API_KEY.endswith("'"):
-                                    OPENAI_API_KEY = OPENAI_API_KEY[1:-1]
-                                break
-        except Exception as e:
-            # Last resort: try reading as bytes and decoding
-            try:
-                with open(env_path, 'rb') as f:
-                    content = f.read().decode('utf-8-sig')
-                    for line in content.splitlines():
-                        line = line.strip()
-                        if 'OPENAI_API_KEY' in line and '=' in line:
-                            parts = line.split('=', 1)
-                            if len(parts) == 2:
-                                key = parts[0].strip().lstrip('\ufeff').strip()
-                                if key == 'OPENAI_API_KEY':
-                                    OPENAI_API_KEY = parts[1].strip()
-                                    break
-            except Exception:
-                pass
-
-# Final fallback
-if not OPENAI_API_KEY or OPENAI_API_KEY == 'your-openai-api-key-here':
-    OPENAI_API_KEY = 'your-openai-api-key-here'
+load_dotenv(BASE_DIR / ".env")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip() or None
 
 APP_NAME = "NUVEXA"
 APP_VERSION = "1.0.0"
@@ -109,4 +46,4 @@ AVATAR_STYLES = [
     'Minimalist Icon'
 ]
 
-DB_NAME = 'nuvexa.db'
+DB_NAME = os.getenv("NUVEXA_DB_PATH", str(BASE_DIR / "nuvexa.db"))
