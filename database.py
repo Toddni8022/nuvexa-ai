@@ -12,16 +12,21 @@ logger = logging.getLogger(__name__)
 class NuvexaDB:
     """Database handler for NUVEXA application."""
     
-    def __init__(self):
+    def __init__(self, db_path: Optional[str] = None):
         """Initialize database connection and create tables."""
-        self.conn = sqlite3.connect(DB_NAME, check_same_thread=False)
+        self.conn = sqlite3.connect(db_path or DB_NAME, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row  # Enable column access by name
+        self.conn.execute("PRAGMA foreign_keys=ON")
         self.create_tables()
     
     def __del__(self):
         """Close database connection on deletion."""
         if hasattr(self, 'conn'):
             self.conn.close()
+
+    def close(self):
+        """Close the database deterministically."""
+        self.conn.close()
     
     @contextmanager
     def get_cursor(self):
